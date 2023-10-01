@@ -148,19 +148,5 @@ def main():
             clear()
 
 
-def not_main():
-    os.system('wolframscript -file tester.txt > t.txt')
-    f = open('t.txt', 'r')
-    content = f.read()
-    lines = content.splitlines()
-    for line in lines:
-        print(line)
-
-
-
-nm = False
-if nm:
-    not_main()
-else:
-    main()
+main()
 
