@@ -128,10 +128,7 @@ def main():
             user_input = str(input())
             if user_input == 'y':
                 print(sol)
-            print("want the temporary code files to be cleared? (answer with 'y' or 'n')")
-            user_input = input()
-            if user_input == 'y':
-                clear()
+            clear()
 
 
 main()
