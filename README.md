@@ -14,7 +14,7 @@ If you're interested in running the program, make sure to include your own API k
 I have not yet added any UI components, so running this program will prompt an input from the user to type in their question. 
 
 # Results
-The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the porblem sometimes. I am still experimenting with different temperatures and prompts for the GPT APIs. The program also struggles to actually generate Python code blocks even though I specify that it needs to.
+The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. I am still experimenting with different temperatures and prompts for the GPT APIs. The program also struggles to actually generate Python code blocks even though I specify that it needs to.
 
 # Demo
 Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. And there are plenty of examples where GPT will calculate a big/precise number wrong and mine is correct, but this one is especially demonstrative.
@@ -23,7 +23,6 @@ What's the probability that two randomly generated numbers, one representing an 
 (This can be used to approximate pi using Monte Carlo methods. The correct answer is pi / 4, which is approximately 0.78539816339.)
 ![Screenshot 2023-10-01 at 2 31 06 PM](https://github.com/ethansirois/Math-tutor/assets/114622541/ae9683f5-409e-4f03-bd54-39787506f71d)
 <img width="839" alt="Screenshot 2023-10-01 at 2 31 40 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/48c2ce6d-a8e2-4cf6-85f9-1309d9505796">
-
 
 
 # Note to AI @ UIUC
