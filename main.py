@@ -4,17 +4,38 @@ from HIDDEN import API_KEY
 openai.api_key = API_KEY
 
 
-def generate_steps(problem, temp):
+def solve_with_script(problem, temp):
     messages = [
-        {"role": "system", "content": "You are an elegant mathematician and the user needs your help solving the "
-                                      "problem. You know that the user has a very precise "
-                                      "calculator, so you guide them on how to solve the problem by telling them"
-                                      " what the necessary calculations they need to input to their calculator are. "
-                                      "You must never calculate something yourself, instead you write out the solution"
-                                      " so that someone could evaluate it all with a calculator. You plan "
-                                      "your solution with what the problem is really asking for in mind, keeping out "
-                                      "any unnecessary calculations."},
-        {"role": "user", "content": "Provide a solution on how someone could solve the following problem: " +
+        {"role": "system", "content": "You are an elegant mathematician who is incredible at Python. The user can only "
+                                      "read Python code blocks, so you must answer their problem by creating a Python"
+                                      "code block by encasing it in triple backticks, e.g., ```\ncode goes here\n```. "
+                                      "You comment each line of code to explain your work. You first import os and "
+                                      "importlib.util. If you need to import a package, use "
+                                      "'os.system('pip install {insert package name}')'. You will store the answer "
+                                      "in a variable"
+                                      " named 'answer', which you will then print at the end of a problem."},
+        {"role": "user", "content": "Correctly solve the following problem by creating a Python code block: " +
+                                    problem + '\n'}
+    ]
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=temp
+    )
+    return completion.choices[0].message["content"]
+
+def regenerate(problem, temp):
+    messages = [
+        {"role": "system", "content": "You are an elegant mathematician who is incredible at Python. The user can only "
+                                      "read Python code blocks, so you must answer their problem by creating a Python"
+                                      "code block by encasing it in triple backticks, e.g., ```\ncode goes here\n```. "
+                                      "You comment each line of code to explain your work. You first import os, then "
+                                      "before importing any other package always use "
+                                      "os.system('pip install {insert package name here}'), to make sure that the "
+                                      "package is installed on the system.  "
+                                      "You will store the answer in a variable"
+                                      " named 'answer', which you will then print at the end of a problem."},
+        {"role": "user", "content": "Correctly solve the following problem by creating a Python code block: " +
                                     problem + '\n'}
     ]
     completion = openai.ChatCompletion.create(
@@ -25,37 +46,13 @@ def generate_steps(problem, temp):
     return completion.choices[0].message["content"]
 
 
-def generate_code(steps):
-    messages = [
-        {"role": "system", "content": "You are an elegant mathematician and a mathematica expert."
-                                      "Given a step-by-step solution on how to solve a problem, you generate the "
-         "necessary mathematica code to compute the solution in the variable 'answer'. You do this in a clear "
-                                      "manner, maximizing readability and minimizing potential errors. After"
-                                      " calculating the correct "
-                                      "value for 'answer', you always have the following line: 'Print[N[answer]]'."
-                                      " You always surround"
-                                      " your code blocks with triple apostrophes---i.e., you have a line of triple"
-                                      " apostrophes before the code block, and a line of triple apostrophes after"
-                                      " the code block."},
-        {"role": "user", "content": "I will provide you with the necessary steps to solve a mathematics problem. You "
-                                    "will then generate the correct mathematica code to compute the necessary "
-                                    "calculations. Here are the steps to the problem: " + steps + '\n'}
-    ]
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        temperature=0
-    )
-    return completion.choices[0].message["content"]
-
-
 def generate_pure_code(code):
     split_up = code.splitlines()
     in_block = False
     code_blocks = []
     start_block = -1
     for i in range(len(split_up)):
-        if "'''" in split_up[i]:
+        if "```" in split_up[i]:
             if in_block:
                 code_blocks.append((start_block, i))
             else:
@@ -74,37 +71,36 @@ def generate_pure_code(code):
 
 def compute(code):
     pure_code = generate_pure_code(code)
-    with open('wls.txt', 'w') as fp:
+    if pure_code == 'FAILURE':
+        return "FAILURE", "something went wrong when getting the code block"
+    with open('py.py', 'w') as fp:
         fp.write(pure_code)
-    os.system('wolframscript -file wls.txt > out.txt')
-    f = open('out.txt', 'r')
-    content = f.read()
-    if len(content) == 0:
-        print("failure, the steps have some mistakes")
-    else:
-        lines = content.splitlines()
-        answer = lines[0]
-        return answer
+    try:
+        os.system('python py.py > out.txt')
+        f = open('out.txt', 'r')
+        content = f.read()
+        if len(content) == 0:
+            print("failure, the steps have some mistakes")
+            return "EMPTY", "the code failed"
+        else:
+            lines = content.splitlines()
+            answer = lines[0]
+            return "SUCCESS", answer
+    except Exception as error:
+        wrong = "An error has occurred when executing the following code. Here is the error: " + str(error) + ". Here is" \
+                    " the code: \n" + pure_code
+        return "ERROR", wrong
 
 
-def provide_answer(problem, steps, answer):
+def provide_answer(problem, code, answer):
     messages = [
-        {"role": "system", "content": "You are an elegant mathematician, whose job is to verify that someone's work "
-                                      "is correct. You will first be given the problem. Determine what the problem is "
-                                      "asking, and keep this in mind while evaluating the solution. You will then be"
-                                      " given the steps of the solution you are supposed to evaluate. "
-                                      "You will lastly be given a calculated answer to the "
-                                      "problem. Ignoring any calculations in the steps, it is your primary duty to "
-                                      "determine if the answer that is provided "
-                                      "is an acceptable answer to the problem. If the problem has not been solved--- "
-                                      "i.e., the answer is blank--- "
-                                      "you need to clearly state that the solution is most likely wrong."},
-        {"role": "user", "content": "Here is the problem: " + problem + ". Here are the steps of the solution which"
-                                        "you are evaluating: " + steps + ". Here is the "
-                                        "calculated answer: " + answer + ". Describe to me if the problem has been "
-                                        "solved, and if it has, then what does my "
-                                        "answer represent? Be sure to include proper "
-                                        "units. Reference the units provided in the problem if they exist." + '\n'}
+        {"role": "system", "content": "You are an elegant mathematician and Python programming expert. You will provide"
+                                      " context to the calculated answer by providing a complete sentence of the "
+                                      "answer. If the problem asks to select from a list of choices, state which choice"
+                                      " is correct. If the answer does not align with any of the options, respond with"
+                                      " what's wrong with the solution and follow this with 'REPEAT'."},
+        {"role": "user", "content": "Here is the problem: " + problem + ". Here is the generated response and code: "
+                                    + code + ". Here is the calculated answer: " + answer + "." + '\n'}
     ]
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -115,7 +111,7 @@ def provide_answer(problem, steps, answer):
 
 
 def clear():
-    os.remove('wls.txt')
+    os.remove('py.py')
     os.remove('out.txt')
 
 
@@ -127,26 +123,36 @@ def main():
     print("\nHappy to help! One moment please.")
     while still_going and temp <= 2:
         print("answering...")
-        steps = generate_steps(problem, temp)
-        code = generate_code(steps)
-        answer = compute(code)
-        response = provide_answer(problem, steps, answer)
-        print("here is the answer:")
-        print(response)
-        print("Is this answer sufficient? If not, we'll turn up the temp and hope for the best (answer with 'y' or "
-              "'n')")
-        user_input = input()
-        still_going = user_input == 'n'
-        temp += 1
-        print("want to see the steps produced? (answer with 'y' or 'n'")
-        user_input = input()
-        if user_input == 'y':
-            print(steps)
-        print("want the temporary code files to be cleared? (answer with 'y' or 'n')")
-        user_input = input()
-        if user_input == 'y':
-            clear()
+        sol = solve_with_script(problem, temp)
+        print("heres the solution: ", sol)
+        code = generate_pure_code(sol)
+        result = compute(code)
+        repeats = 0
+        while result[0] == "ERROR" and repeats <= 4:
+            error_msg_w_code = result[1]
+            sol = solve_with_script(error_msg_w_code, temp)
+            code = generate_pure_code(sol)
+            result = compute(code)
+            repeats += 1
+        if repeats < 5:
+            answer = result[1]
+            print("before responding")
+            response = provide_answer(problem, sol, answer)
+            print("here is the answer:")
+            print(response)
+            print("Is this answer sufficient? If not, we'll turn up the temp and hope for the best (answer with 'y' or "
+                  "'n')")
+            user_input = str(input())
+            still_going = user_input == 'n'
+            temp += 0.4
+            print("want to see the code produced? (answer with 'y' or 'n'")
+            user_input = str(input())
+            if user_input == 'y':
+                print(sol)
+            print("want the temporary code files to be cleared? (answer with 'y' or 'n')")
+            user_input = input()
+            if user_input == 'y':
+                clear()
 
 
 main()
-
