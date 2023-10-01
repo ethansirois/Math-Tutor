@@ -16,6 +16,16 @@ I have not yet added any UI components, so running this program will prompt an i
 # Results
 The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent. It is able to get the correct computation after a few tries, but it struggles to consistently provide a correct answer (when running the program, I offer to regenerate the answer, increasing the temperature to create more randomness in hopes that it will land on the right answer). I am still experimenting with different temperatures and prompts for the GPT APIs. The program also struggles to actually generate Python code blocks even though I specify that it needs to.
 
+# Demo
+Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. 
+The problem is the following:
+What's the probability that two randomly generated numbers, one representing an x-coordinate and one representing a y-coordinate, that are between 0 and 1 inclusive, are inside a circle centered at the origin with radius 1?
+(This can be used to approximate pi using Monte Carlo methods. The correct answer is pi / 4, which is approximately 0.78539816339.)
+![Screenshot 2023-10-01 at 2 31 06 PM](https://github.com/ethansirois/Math-tutor/assets/114622541/ae9683f5-409e-4f03-bd54-39787506f71d)
+<img width="839" alt="Screenshot 2023-10-01 at 2 31 40 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/48c2ce6d-a8e2-4cf6-85f9-1309d9505796">
+
+
+
 # Note to AI @ UIUC
 I just wanted to state that I had no prior experience creating or using an AI program before. I hope what I've been able to learn and program in this short timespan demonstrates my interest in developing many more AI applications with the development team (and hopefully research team next year), and my ability to learn new APIs, packages, and tools. I hope to hear back soon!
 
