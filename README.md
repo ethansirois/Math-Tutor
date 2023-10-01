@@ -1,3 +1,6 @@
+# Note to AI @ UIUC
+I just wanted to state that while my model may not be the most impressive, I had no prior experience creating or using an AI program or WolframScript before. I hope what I've been able to learn in this short timespan demonstrates my interest in developing many more AI applicaitons with the development (and hopefully research) team, and my ability to learn new APIs and tools. I hope to hear back soon!
+
 # Inspiration
 It has always been interesting to me that ChatGPT has struggled with math problems that computers have been able to answer for so long. Anytime you're dealing with numbers with many significant figures or less common numbers, ChatGPT really struggles to produce the right answer. GPTs can mostly provide the correct reasoning and steps of a problem, it's just the actual calculations and algebra that it struggles with. Therefore, it makes the most sense to still have the GPT API generate the steps to solve the problem, but just not do any calculations. I then create a WolframScript file with the necessary calculations and return an answer containing this calculation.
 
