@@ -23,28 +23,7 @@ def solve_with_script(problem, temp):
         temperature=temp
     )
     return completion.choices[0].message["content"]
-
-def regenerate(problem, temp):
-    messages = [
-        {"role": "system", "content": "You are an elegant mathematician who is incredible at Python. The user can only "
-                                      "read Python code blocks, so you must answer their problem by creating a Python"
-                                      "code block by encasing it in triple backticks, e.g., ```\ncode goes here\n```. "
-                                      "You comment each line of code to explain your work. You first import os, then "
-                                      "before importing any other package always use "
-                                      "os.system('pip install {insert package name here}'), to make sure that the "
-                                      "package is installed on the system.  "
-                                      "You will store the answer in a variable"
-                                      " named 'answer', which you will then print at the end of a problem."},
-        {"role": "user", "content": "Correctly solve the following problem by creating a Python code block: " +
-                                    problem + '\n'}
-    ]
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        temperature=temp
-    )
-    return completion.choices[0].message["content"]
-
+    
 
 def generate_pure_code(code):
     split_up = code.splitlines()
