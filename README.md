@@ -17,7 +17,7 @@ I have not yet added any UI components, so running this program will prompt an i
 The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the porblem sometimes. I am still experimenting with different temperatures and prompts for the GPT APIs. The program also struggles to actually generate Python code blocks even though I specify that it needs to.
 
 # Demo
-Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. And there are plenty of examples where GPT will calculate a big/precise number wrong, but this one is especially demonstrative.
+Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. And there are plenty of examples where GPT will calculate a big/precise number wrong and mine is correct, but this one is especially demonstrative.
 The problem is the following:
 What's the probability that two randomly generated numbers, one representing an x-coordinate and one representing a y-coordinate, that are between 0 and 1 inclusive, are inside a circle centered at the origin with radius 1?
 (This can be used to approximate pi using Monte Carlo methods. The correct answer is pi / 4, which is approximately 0.78539816339.)
