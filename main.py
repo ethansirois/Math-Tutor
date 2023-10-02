@@ -9,12 +9,15 @@ def solve_with_script(problem, temp):
         {"role": "system", "content": "You are an elegant mathematician who is incredible at Python. The user can only "
                                       "read Python code blocks, so you must answer their problem by creating a Python"
                                       "code block by encasing it in triple backticks, e.g., ```\ncode goes here\n```. "
-                                      "You comment each line of code to explain your work. You first import os and "
-                                      "importlib.util. If you need to import a package, use "
+                                      "You comment each line of code to explain your work using '#'. You first import "
+                                      "'os' and "
+                                      "'importlib.util'. Before importing a package, use "
+                                      "'importlib.util.find_spec({insert package name here})' to see if the package"
+                                      " is installed already. If the package needs to be installed, use "
                                       "'os.system('pip install {insert package name}')'. You will store the answer "
                                       "in a variable"
-                                      " named 'answer', which you will then print at the end of a problem."},
-        {"role": "user", "content": "Correctly solve the following problem by creating a Python code block: " +
+                                      " named 'answer', and your last line of the code block will be 'print(answer)'."},
+        {"role": "user", "content": "What's a Python script that can correctly solve the following problem: " +
                                     problem + '\n'}
     ]
     completion = openai.ChatCompletion.create(
@@ -23,7 +26,7 @@ def solve_with_script(problem, temp):
         temperature=temp
     )
     return completion.choices[0].message["content"]
-    
+
 
 def generate_pure_code(code):
     split_up = code.splitlines()
@@ -59,11 +62,11 @@ def compute(code):
         f = open('out.txt', 'r')
         content = f.read()
         if len(content) == 0:
-            print("failure, the steps have some mistakes")
+            print("failure bc out.txt is empty")
             return "EMPTY", "the code failed"
         else:
             lines = content.splitlines()
-            answer = lines[0]
+            answer = content
             return "SUCCESS", answer
     except Exception as error:
         wrong = "An error has occurred when executing the following code. Here is the error: " + str(error) + ". Here is" \
@@ -74,10 +77,12 @@ def compute(code):
 def provide_answer(problem, code, answer):
     messages = [
         {"role": "system", "content": "You are an elegant mathematician and Python programming expert. You will provide"
-                                      " context to the calculated answer by providing a complete sentence of the "
-                                      "answer. If the problem asks to select from a list of choices, state which choice"
+                                      " context to the calculated answer by providing a complete sentence containing"
+                                      " the calculated answer. YOU WILL NEVER DO ANY CALCULATIONS. You will only use "
+                                      "the calculated answer that is provided. If the problem asks to select from a "
+                                      "list of choices, state which choice"
                                       " is correct. If the answer does not align with any of the options, respond with"
-                                      " what's wrong with the solution and follow this with 'REPEAT'."},
+                                      " what's wrong with the solution and follow this with 'REPEAT'. "},
         {"role": "user", "content": "Here is the problem: " + problem + ". Here is the generated response and code: "
                                     + code + ". Here is the calculated answer: " + answer + "." + '\n'}
     ]
@@ -101,9 +106,7 @@ def main():
     problem = str(input())
     print("\nHappy to help! One moment please.")
     while still_going and temp <= 2:
-        print("answering...")
         sol = solve_with_script(problem, temp)
-        print("heres the solution: ", sol)
         code = generate_pure_code(sol)
         result = compute(code)
         repeats = 0
@@ -115,7 +118,6 @@ def main():
             repeats += 1
         if repeats < 5:
             answer = result[1]
-            print("before responding")
             response = provide_answer(problem, sol, answer)
             print("here is the answer:")
             print(response)
