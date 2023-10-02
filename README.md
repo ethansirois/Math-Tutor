@@ -14,7 +14,7 @@ If you're interested in running the program, make sure to include your own API k
 I have not yet added any UI components, so running this program will prompt an input from the user to type in their question. 
 
 # Results
-The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. I am still experimenting with different temperatures and prompts for the GPT APIs. The program also struggles to actually generate Python code blocks even though I specify that it needs to.
+The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. There are still a handful of these SAT-esque math problems where my model will correctly answer and GPT will fall short. I am still experimenting with different temperatures and prompts for the GPT APIs.
 
 # Demo
 Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. And there are plenty of examples where GPT will calculate a big/precise number wrong and mine is correct, but this one is especially demonstrative.
