@@ -27,7 +27,7 @@ Here's another example with linear algebra. Linear algebra seems to be one of th
 
 The inputted question was "determine the inverse of the following matrix: [(1, -1, 1), (1, 1, 1), (1, 2, 4)]"
 The answer is, like my model said, [(1/3, 1, -1/3), (-1/2, 1/2, 0), (1/6, -1/2, 1/3)]
-. So again, ChatGPT by itself, not very good at math, but GPT models have the ability to create Python files that can get the correct answer, so leveraging this creates huge improvements at their math capabilities.
+. So again, ChatGPT by itself is not very good at math because they struggle with computations, but GPT models have the ability to create Python files that can get the correct answer, so leveraging this creates huge improvements at their math capabilities.
 
 # Results
 The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. The model is very good at problems that involve "plug and chug" formulas like linear algebra problems or integrating, because there are many existing tools to do these computations in Python like NumPy and SymPy.
