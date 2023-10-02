@@ -24,6 +24,17 @@ What's the probability that two randomly generated numbers, one representing an 
 ![Screenshot 2023-10-01 at 2 31 06 PM](https://github.com/ethansirois/Math-tutor/assets/114622541/ae9683f5-409e-4f03-bd54-39787506f71d)
 <img width="839" alt="Screenshot 2023-10-01 at 2 31 40 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/48c2ce6d-a8e2-4cf6-85f9-1309d9505796">
 
+Here's another example with linear algebra. Linear algebra seems to be one of the areas with the biggest differences; ChatGPT really struggles but this model utilizing Python scripts performs much better. 
+
+<img width="1353" alt="Screenshot 2023-10-02 at 12 13 38 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/7b7c9d24-99e9-431f-8743-7629530dd191">
+
+<img width="680" alt="Screenshot 2023-10-02 at 12 07 42 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/6508a0d2-cc0d-45fb-b5e3-c0942ca4bb9a">
+<img width="464" alt="Screenshot 2023-10-02 at 12 15 42 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/12c568a7-b923-484b-9a37-bf54d0997b7a">
+
+
+The inputted question was "determine the inverse of the following matrix: [(1, -1, 1), (1, 1, 1), (1, 2, 4)]"
+The answer is, like my model said, [(1/3, 1, -1/3), (-1/2, 1/2, 0), (1/6, -1/2, 1/3)]
+. So again, ChatGPT by itself, not very good at math. But it has the ability to create Python files that can get the correct answer, so using this makes GPT models much more impressive at math.
 
 # Note to AI @ UIUC
 I just wanted to state that I had no prior experience creating or using an AI program before. I hope what I've been able to learn and program in this short timespan demonstrates my interest in developing many more AI applications with the development team (and hopefully research team next year), and my ability to learn new APIs, packages, and tools. I hope to hear back soon!
