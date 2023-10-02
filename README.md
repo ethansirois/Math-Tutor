@@ -9,13 +9,6 @@ Here is a general pipeline of the program:
 3. A temporary Python file named “py.py” that will run this program is created, and then the code is written to this file. This file is then executed using ```os.system(“python py.py > out.txt”)``` to write the output of this file, which is the calculated answer, to out.txt.
 4. I then have a final GPT model evaluate what the question is really asking to confirm that this answer is generally appropriate, and append the right units. This provides a concise final answer to the problem.
 
-# Using the Code
-If you're interested in running the program, make sure to include your own API key from OpenAI in the HIDDEN.py file.
-I have not yet added any UI components, so running this program will prompt an input from the user to type in their question. 
-
-# Results
-The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. There are still a handful of these SAT-esque math problems where my model will correctly answer and GPT will fall short. I am still experimenting with different temperatures and prompts for the GPT APIs.
-
 # Demo
 Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. And there are plenty of examples where GPT will calculate a big/precise number wrong and mine is correct, but this one is especially demonstrative.
 The problem is the following:
@@ -36,8 +29,15 @@ The inputted question was "determine the inverse of the following matrix: [(1, -
 The answer is, like my model said, [(1/3, 1, -1/3), (-1/2, 1/2, 0), (1/6, -1/2, 1/3)]
 . So again, ChatGPT by itself, not very good at math. But it has the ability to create Python files that can get the correct answer, so using this makes GPT models much more impressive at math.
 
+# Results
+The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. The model is very good at problems that involve "plug and chug" formulas like linear algebra problems or integrating, because there are many existing tools to do these computations in Python like NumPy and SymPy.
+
 # Note to AI @ UIUC
 I just wanted to state that I had no prior experience creating or using an AI program before. I hope what I've been able to learn and program in this short timespan demonstrates my interest in developing many more AI applications with the development team (and hopefully research team next year), and my ability to learn new APIs, packages, and tools. I hope to hear back soon!
+
+# Using the Code
+If you're interested in running the program, make sure to include your own API key from OpenAI in the HIDDEN.py file.
+I have not yet added any UI components, so running this program will prompt an input from the user to type in their question. 
 
 # Future Plans
 I started this project for my AI @ UIUC application, but I plan to continue building it. I will add a UI and experiment with different temperatures and generations. I also hope to add some sort of functionality for vision in the future. At first, this would look like being able to read a problem that is submitted by photo, but then hopefully expand to more complex tasks, such as reading tables, analyzing geometric diagrams, and analyzing function graphs.
