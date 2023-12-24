@@ -32,9 +32,6 @@ The answer is, like my model said, [(1/3, 1, -1/3), (-1/2, 1/2, 0), (1/6, -1/2, 
 # Results
 The program has been able to correctly answer the questions where ChatGPT fails due to large or higher-precision numbers. On problems that ChatGPT struggles with such as more advanced SAT Math questions, the program is still inconsistent, and this is a limitation due to GPT models not understanding the problem. The model is very good at problems that involve "plug and chug" formulas like linear algebra problems or integrating, because there are many existing tools to do these computations in Python like NumPy and SymPy.
 
-# Note to AI @ UIUC
-I just wanted to state that I had no prior experience creating or using an AI program before. I hope what I've been able to learn and program in this short timespan demonstrates my interest in developing many more AI applications with the development team (and hopefully research team next year), and my ability to learn new APIs, packages, and tools. I hope to hear back soon!
-
 # Using the Code
 If you're interested in running the program, make sure to include your own API key from OpenAI in the HIDDEN.py file.
 I have not yet added any UI components, so running this program will prompt an input from the user to type in their question. 
