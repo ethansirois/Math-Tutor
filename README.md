@@ -13,8 +13,9 @@ Here is a general pipeline of the program:
 Here's an example where my program is able to correctly answer the question, and ChatGPT falls quite short. And there are plenty of examples where GPT will calculate a big/precise number wrong and mine is correct, but this one is especially demonstrative.
 The problem is the following:
 
-What's the probability that two randomly generated numbers, one representing an x-coordinate and one representing a y-coordinate, that are between 0 and 1 inclusive, are inside a circle centered at the origin with radius 1?
-(This can be used to approximate pi using Monte Carlo methods. The correct answer is pi / 4, which is approximately 0.78539816339.)
+"What's the probability that two randomly generated numbers, one representing an x-coordinate and one representing a y-coordinate, that are between 0 and 1 inclusive, are inside a circle centered at the origin with radius 1?"
+
+(Note to the reader to explain the context: this can be used to approximate pi using Monte Carlo methods. The correct answer is pi / 4, which is approximately 0.78539816339, since we are using many randomly sampled points in the interval [0, 1] by [0, 1], and the circle is centered at the origin with radius 1.)
 ![Screenshot 2023-10-01 at 2 31 06 PM](https://github.com/ethansirois/Math-tutor/assets/114622541/ae9683f5-409e-4f03-bd54-39787506f71d)
 <img width="839" alt="Screenshot 2023-10-01 at 2 31 40 PM" src="https://github.com/ethansirois/Math-tutor/assets/114622541/48c2ce6d-a8e2-4cf6-85f9-1309d9505796">
 
