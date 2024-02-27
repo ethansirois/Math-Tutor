@@ -37,6 +37,6 @@ If you're interested in running the program, make sure to include your own API k
 I have not yet added any UI components, so running this program will prompt an input from the user to type in their question. 
 
 # Future Plans
-I started this project for my AI @ UIUC application, but I plan to continue building it. I will add a UI and experiment with different temperatures and generations. I also hope to add some sort of functionality for vision in the future. At first, this would look like being able to read a problem that is submitted by photo, but then hopefully expand to more complex tasks, such as reading tables, analyzing geometric diagrams, and analyzing function graphs.
+I will add a UI and experiment with different temperatures and generations. I also hope to add some sort of functionality for vision in the future. At first, this would look like being able to read a problem that is submitted by photo, but then hopefully expand to more complex tasks, such as reading tables, analyzing geometric diagrams, and analyzing function graphs.
 
 
